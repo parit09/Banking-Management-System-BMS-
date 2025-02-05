@@ -7,8 +7,6 @@ import com.Banking.Services.Accounts;
 import com.Banking.Services.Loan;
 import com.Banking.Services.Transaction;
 
-
-
 public class Database {
     private static ArrayList<User> users = new ArrayList<>();
     private static ArrayList<Accounts> accounts = new ArrayList<>();
@@ -40,6 +38,15 @@ public class Database {
         users.add(user);
     }
 
+    public static boolean userExists(String userId) {
+        for (User user : users) {
+            if (user.getUserId().equals(userId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void addAccount(Accounts account) {
         accounts.add(account);
     }
@@ -54,5 +61,23 @@ public class Database {
 
     public static void addEmployee(Employee employee) {
         employees.add(employee);
+    }
+
+    public static Accounts findAccount(String accountNumber) {
+        for (Accounts acc : accounts) {
+            if (acc.getAccountNumber().equals(accountNumber)) {
+                return acc;
+            }
+        }
+        return null;
+    }
+
+    public static void deposit(String accountNumber, double amount) {
+        Accounts acc = findAccount(accountNumber);
+        if (acc == null) {
+            System.out.println("Error: Account not found.");
+        } else {
+            acc.deposit(amount);
+        }
     }
 }

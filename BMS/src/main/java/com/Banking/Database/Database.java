@@ -1,6 +1,7 @@
 package com.Banking.Database;
 import java.util.ArrayList;
 
+import com.Banking.CustExpception.CustomerNotFoundException;
 import com.Banking.Models.Accounts;
 import com.Banking.Models.Customer;
 import com.Banking.Models.Employee;
@@ -97,16 +98,23 @@ public class Database {
     	System.out.println("Employee Removed: " + employeeId);
     }
     
-    public static void  delCustomer(String CustomerId) {
-    	for(Customer cs:customers)
-    	{
-    		if(cs.getCustomerId() ==CustomerId)
-    		{
-    			employees.remove(cs);
-    		}
-    	}
-    	System.out.println("Customer Removed: " + CustomerId);
+    public static void delCustomer(String customerId) {
+        boolean found = false;
+
+        for (Customer cs : customers) {
+            if (cs.getCustomerId().equals(customerId)) {
+                customers.remove(cs);
+                System.out.println("Customer Removed: " + customerId);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            throw new CustomerNotFoundException("Customer with ID " + customerId + " not found.");
+        }
     }
+
     
     public static void deposit(String accountNumber, double amount) {
         Accounts acc = findAccount(accountNumber);

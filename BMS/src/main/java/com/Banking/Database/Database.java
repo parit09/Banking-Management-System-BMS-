@@ -1,18 +1,19 @@
 package com.Banking.Database;
 import java.util.ArrayList;
 
+import com.Banking.Models.Accounts;
+import com.Banking.Models.Customer;
 import com.Banking.Models.Employee;
+import com.Banking.Models.Loan;
+import com.Banking.Models.Transaction;
 import com.Banking.Models.User;
-import com.Banking.Services.Accounts;
-import com.Banking.Services.Loan;
-import com.Banking.Services.Transaction;
-
 public class Database {
     private static ArrayList<User> users = new ArrayList<>();
     private static ArrayList<Accounts> accounts = new ArrayList<>();
     private static ArrayList<Transaction> transactions = new ArrayList<>();
     private static ArrayList<Loan> loans = new ArrayList<>();
     private static ArrayList<Employee> employees = new ArrayList<>();
+    private static ArrayList<Customer> customers = new ArrayList<>();
 
     public static ArrayList<User> getUsers() {
         return users;
@@ -32,6 +33,10 @@ public class Database {
 
     public static ArrayList<Employee> getEmployees() {
         return employees;
+    }
+
+    public static ArrayList<Customer> getCustomers() {
+        return customers;
     }
 
     public static void addUser(User user) {
@@ -63,6 +68,10 @@ public class Database {
         employees.add(employee);
     }
 
+    public static void addCustomer(Customer customer) {
+        customers.add(customer);
+    }
+
     public static Accounts findAccount(String accountNumber) {
         for (Accounts acc : accounts) {
             if (acc.getAccountNumber().equals(accountNumber)) {
@@ -72,6 +81,33 @@ public class Database {
         return null;
     }
 
+    public static void  delAccount(String accountNumber) {
+    	accounts.removeIf(acc -> acc.getAccountNumber().equals(accountNumber));
+        System.out.println("Account closed: " + accountNumber);
+    }
+    
+    public static void  delEmployee(String employeeId) {
+    	for(Employee emp:employees)
+    	{
+    		if(emp.getEmployeeId() ==employeeId)
+    		{
+    			employees.remove(emp);
+    		}
+    	}
+    	System.out.println("Employee Removed: " + employeeId);
+    }
+    
+    public static void  delCustomer(String CustomerId) {
+    	for(Customer cs:customers)
+    	{
+    		if(cs.getCustomerId() ==CustomerId)
+    		{
+    			employees.remove(cs);
+    		}
+    	}
+    	System.out.println("Customer Removed: " + CustomerId);
+    }
+    
     public static void deposit(String accountNumber, double amount) {
         Accounts acc = findAccount(accountNumber);
         if (acc == null) {

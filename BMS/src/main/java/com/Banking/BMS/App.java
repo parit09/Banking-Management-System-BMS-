@@ -17,8 +17,9 @@ public class App {
         Database.addEmployee(admin);
 
         System.out.println("\u001B[36mWelcome to Banking Management System\u001B[0m");
+        int l=0;
         
-        while (true) {
+        while (l==0) {
             System.out.println("\u001B[36m1. Create User\u001B[0m");
             System.out.println("\u001B[36m2. Create Account\u001B[0m");
             System.out.println("\u001B[36m3. Deposit Money\u001B[0m");
@@ -112,10 +113,6 @@ public class App {
 	                		case 1: 
 	                			System.out.print("\u001B[36mEnter user ID: \u001B[0m");
 	                            String accUId = scanner.nextLine();
-	                            if (!Database.userExists(accUId)) {
-	                                System.out.println("Error: User does not exist. Create a user first.");
-	                                break;
-	                            }
 	                            System.out.print("\u001B[36mEnter account number: \u001B[0m");
 	                            String accN = scanner.nextLine();
 	                            System.out.print("\u001B[36mEnter initial balance: \u001B[0m");
@@ -214,7 +211,8 @@ public class App {
                     scanner.close();
                     break;
                 case 8:
-                	return;
+                	l=-1;
+                	break;
                 
                 default:
                     System.out.println("\u001B[36mInvalid choice, please try again.\u001B[0m");

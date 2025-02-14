@@ -1,8 +1,14 @@
 package com.Banking.Models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Accounts {
+	@Id
     private String accountNumber;
     private double balance;
+    
     private String accUserID;
 
     public Accounts(String accountNumber, double balance,String accUserID) {
